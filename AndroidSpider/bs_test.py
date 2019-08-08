@@ -34,6 +34,7 @@ page_count1 = 0
 page_count2 = 1
 while page_count2 > page_count1:
 	# 设置代理
+	httpproxy_handler = urllib2.ProxyHandler({"http": ""})
     url_pre = quote(url_pre, safe=string.printable)
     request_pre = urllib2.Request(url=url_pre + str(page_count2))
 
