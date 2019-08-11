@@ -2,7 +2,6 @@
 
 # 天堂图片网爬取高质量图片
 
-
 import urllib.request as urllib2
 import random,re,os
 from lxml import html
@@ -99,6 +98,7 @@ for p in range(pageCount):
             imageName = re.search(r"[^/]+(?!.*/)", imageUrlFoot, re.MULTILINE | re.DOTALL).group()
 
             imageUrl = 'https://img.ivsky.com' + imageUrlFoot
+            # 请求头加Cache-Control: no-cahce，网站会将图片缓存在本地memory cache中，实际下载不需要缓存
             headers = {
                 'Cache-Control': 'no-cahce',
                 'Referer': ' https://www.ivsky.com/download_pic.html?picurl=' + imageUrlFoot,
