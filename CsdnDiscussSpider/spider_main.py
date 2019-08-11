@@ -26,6 +26,9 @@ class CsdnSpider(object):
             'connection': 'keep-alive',
             'Host': 'passport.csdn.net'
         }
+        self.proxies = {
+            'https': 'http://111.231.91.104:8888'
+        }
 
     def get_random_webflow_form(self):
         '''
@@ -50,7 +53,7 @@ class CsdnSpider(object):
         post_form['pwdOrVerifyCode'] = password
         print(str(post_form))
         try:
-            response = requests.post(self.url_login, data=str(post_form), headers=self.header)
+            response = requests.post(self.url_login, data=str(post_form), headers=self.header, proxies=self.proxies, verify=False)
             cookies = requests.utils.dict_from_cookiejar(response.cookies)
             print(response.text)
             return cookies
@@ -63,7 +66,7 @@ class CsdnSpider(object):
         获取CSDN我的博客页面的评论管理页面我文章的评论列表（按照评论页数获取）
         :return: {'maxPage'100:, 'dict':[{'article':'xxx', 'url':'xxx', 'commentator':'xxx', 'time':'xxx', 'content':'xxx'}]}
         '''
-        content = requests.get(self.url_feedback + str(page_index), cookies=cookies).text
+        content = requests.get(self.url_feedback + str(page_index), proxies=self.proxies, verify=False, cookies=cookies).text
         page_content_search = re.search(re.compile(r'<div class="page_nav"><span>.*?共(\d+)页</span>'), content)
         if page_content_search is not None:
             max_page = re.search(re.compile(r'<div class="page_nav"><span>.*?共(\d+)页</span>'), content).group(1)
