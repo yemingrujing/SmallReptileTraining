@@ -62,7 +62,6 @@ pageCount=1
 print('计算完成，关键词为%s的图片总计有%s页' % (Img_Name, pageCount))
 
 print('现在开始下载...')
-imageName = 0
 for p in range(pageCount):
     pageNumberS = pageNumberS + 1
     pageNumber = str(pageNumberS)
@@ -85,7 +84,6 @@ for p in range(pageCount):
         os.makedirs(dirName)
 
     for imageSkipUrl in imageUrls:
-        imageName = imageName + 1
         # 可以直接取属性获得href内容 https://bbs.csdn.net/topics/392161042?list=lz
         url2 = 'http://www.ivsky.com' + imageSkipUrl
         request2 = urllib2.Request(url=url2)
@@ -97,6 +95,8 @@ for p in range(pageCount):
         script = soup2.find("script", text=pattern)
         imageUrlFoot = pattern.search(script.text).group(1)
         if len(imageUrlFoot.strip()) != 0:
+            imageName = re.search(r"[^/]+(?!.*/)", imageUrlFoot, re.MULTILINE | re.DOTALL).group()
+
             imageUrl = 'https://img.ivsky.com' + imageUrlFoot
             headers = {
                 'Cache-Control': 'no-cahce',
@@ -107,8 +107,8 @@ for p in range(pageCount):
             request = urllib2.Request(url=imageUrl, data=None, headers=headers)
             response = urllib2.urlopen(request)
             data = response.read()
-            with open('%s/%s%s.jpg' % (dirName, pageNumberS, imageName), 'wb') as f:
+            with open('%s/%s_%s.jpg' % (dirName, pageNumberS, imageName), 'wb') as f:
                 f.write(data)
             print('正在下载第%s页第%s张图片，总计%s页' % (pageNumberS, imageName, pageCount))
-            print('存储为%s/%s%s.jpg' % (dirName, pageNumberS, imageName))
+            print('存储为%s/%s_%s.jpg' % (dirName, pageNumberS, imageName))
 print("已经全部下载完毕！")
