@@ -95,6 +95,7 @@ for p in range(pageCount):
         script = soup2.find("script", text=pattern)
         imageUrlFoot = pattern.search(script.text).group(1)
         if len(imageUrlFoot.strip()) != 0:
+            # 匹配网址URL中最后一个反斜杠/后面的内容
             imageName = re.search(r"[^/]+(?!.*/)", imageUrlFoot, re.MULTILINE | re.DOTALL).group()
 
             imageUrl = 'https://img.ivsky.com' + imageUrlFoot
