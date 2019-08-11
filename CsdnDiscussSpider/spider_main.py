@@ -1,7 +1,7 @@
-from http import cookiejar
-from urllib import request
+# -*- coding: utf-8 -*-
+
+import requests
 import re
-from urllib.parse import urlencode
 
 '''
 登录CSDN帐号后爬取我的博客评论管理列表
@@ -10,38 +10,26 @@ Customer opener Cookie
 '''
 class CsdnSpider(object):
     def __init__(self):
-        self.url_login = "https://passport.csdn.net/?service=http://write.blog.csdn.net/feedback"
+        self.url_login = "https://passport.csdn.net/v1/register/pc/login/doLogin"
         self.url_feedback = "http://write.blog.csdn.net/feedback/in/"
-        self.opener = self.create_cookie_opener()
-        self.opener.addheaders = [
-            ("User-Agent",
-             "Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/54.0.2840.100 Safari/537.36"),
-            ("Host", "passport.csdn.net")
-        ]
-
-    def create_cookie_opener(self):
-        '''
-        设置启用Cookie
-        :return: 返回一个自定义的opener
-        '''
-        cookie = cookiejar.CookieJar()
-        cookie_process = request.HTTPCookieProcessor(cookie)
-        opener = request.build_opener(cookie_process)
-        return opener
+        self.header = {
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/73.0.3683.86 Safari/537.36',
+            'referer': 'https://passport.csdn.net/login',
+            'origin': 'https://passport.csdn.net',
+            'content-Type': 'application/json;charset=UTF-8',
+            'x-requested-with': 'XMLHttpRequest',
+            'accept': 'application/json, text/plain, */*',
+            'accept-encoding': 'gzip, deflate, br',
+            'accept-language': 'zh-CN,zh;q=0.9',
+            'connection': 'keep-alive',
+            'Host': 'passport.csdn.net'
+         }
 
     def get_random_webflow_form(self):
         '''
-        获取随机流水号，CSDN网站登录时需要随表单提交一个随机登录流水key
         :return: 返回FORM表单流水字典
         '''
-        try:
-            content = self.opener.open(self.url_login).read().decode("utf8")
-            lt = re.search(re.compile(r'<input type="hidden" name="lt" value="(.*?)"'), content)
-            execution = re.search(re.compile(r'<input type="hidden" name="execution" value="(.*?)"'), content)
-            return {'lt': lt.group(1), 'execution': execution.group(1), '_eventId': 'submit'}
-        except Exception as e:
-            print("get random webflow form Exception."+str(e))
-            return dict()
+        return {'loginType': '1', 'uaToken': '', 'webUmidToken': ''}
 
     def login(self, user_name=None, password=None):
         '''
@@ -54,14 +42,14 @@ class CsdnSpider(object):
             print('You need use a valied user name and password to login!')
             return None
         post_form = self.get_random_webflow_form()
-        post_form['username'] = user_name
-        post_form['password'] = password
-        post_data = urlencode(post_form).encode("utf8")
+        post_form['userIdentification'] = user_name
+        post_form['pwdOrVerifyCode'] = password
         print(str(post_form))
         try:
-            content = self.opener.open(self.url_login, data=post_data).read().decode("utf8")
-            redirect = re.search(re.compile(r'var redirect = "(.*?)"'), content)
-            return redirect.group(1)
+            response = requests.post(self.url_login, data=str(post_form), headers=self.header)
+            cookies = requests.utils.dict_from_cookiejar(response.cookies)
+            result = response.text
+            return cookies
         except Exception as e:
             print("login Exception."+str(e))
             return None
@@ -116,4 +104,4 @@ class CsdnSpider(object):
         print("Finish! Toal valid feedback is:"+str(total_feedback))
 
 if __name__ == "__main__":
-    CsdnSpider().run("[Your CSDN Uasename]", "[Your CSDN Password]")
+    CsdnSpider().run("", "")
