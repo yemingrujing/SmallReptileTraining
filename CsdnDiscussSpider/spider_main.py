@@ -27,7 +27,7 @@ class CsdnSpider(object):
             'Host': 'passport.csdn.net'
         }
         self.proxies = {
-            'https': 'http://111.231.91.104:8888'
+            'https': 'https://111.231.91.104:8888'
         }
 
     def get_random_webflow_form(self):
