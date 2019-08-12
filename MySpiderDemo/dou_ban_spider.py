@@ -82,4 +82,6 @@ class DouBanSpider(object):
 
 
 if __name__ == "__main__":
+    # 获取cookie，以获取更多的短评数据
+    # cookies = DouBanSpider.login('YOUR USERNAME', 'YOUR PASSWORD')
     DouBanSpider().getComment()
