@@ -3,7 +3,7 @@
 # 天堂图片网爬取高质量图片
 
 import urllib.request as urllib2
-import random,re,os
+import random, re, os
 from lxml import html
 from urllib.parse import quote
 from bs4 import BeautifulSoup
