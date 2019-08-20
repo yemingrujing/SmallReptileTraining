@@ -61,15 +61,15 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable spider middlewares
 # See https://doc.scrapy.org/en/latest/topics/spider-middleware.html
-#SPIDER_MIDDLEWARES = {
-#    'cartoon.middlewares.CartoonSpiderMiddleware': 543,
-#}
+SPIDER_MIDDLEWARES = {
+   'cartoon.middlewares.CartoonSpiderMiddleware': 543,
+}
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'cartoon.middlewares.CartoonDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   'cartoon.middlewares.CartoonDownloaderMiddleware': 543,
+}
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
@@ -81,9 +81,9 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 # 定义pipeline处理请求
-#ITEM_PIPELINES = {
-#    'cartoon.pipelines.CartoonPipeline': 300,
-#}
+ITEM_PIPELINES = {
+   'cartoon.pipelines.W3SchoolPipeline': 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
