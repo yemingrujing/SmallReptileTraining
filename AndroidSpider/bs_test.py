@@ -4,7 +4,7 @@
 
 import urllib.request as urllib2
 import random, re, os
-from lxml.html import etree
+from lxml import html
 from urllib.parse import quote
 from bs4 import BeautifulSoup
 from http import cookiejar
@@ -23,7 +23,7 @@ ua_list = [
     "Opera/9.80 (Windows NT 6.1; U; en) Presto/2.8.131 Version/11.11",
     "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_7_0) AppleWebKit/535.11 (KHTML, like Gecko) Chrome/17.0.963.56 Safari/535.11"
 ]
-
+etree = html.etree
 userAgent = random.choice(ua_list)
 
 # 要爬取的关键词，中文编码出错，待解决
