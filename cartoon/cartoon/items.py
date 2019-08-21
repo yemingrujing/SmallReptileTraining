@@ -5,10 +5,10 @@
 # See documentation in:
 # https://doc.scrapy.org/en/latest/topics/items.html
 
-from scrapy.item import Item, Field
+from scrapy import Item, Field
 
 
-class W3schoolItem(Item):
+class CartoonItem(Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     title = Field()

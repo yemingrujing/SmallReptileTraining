@@ -1,26 +1,14 @@
-#!/usr/bin/python
-# -*- coding:utf-8 -*-
-# https://blog.csdn.net/u012150179/article/details/32911511
+# -*- coding: utf-8 -*-
 from scrapy.spiders import Spider
 from scrapy.selector import Selector
 from scrapy import log
-from cartoon.cartoon.items import W3schoolItem
-import sys
-import os
-
-curPath = os.path.abspath(os.path.dirname(__file__))
-rootPath = os.path.split(curPath)[0]
-sys.path.append(rootPath)
+from ..items import CartoonItem
 
 
 class W3schoolSpider(Spider):
-    """爬取w3school标签"""
-    # log.start("log",loglevel='INFO')
-    name = "w3school"
-    allowed_domains = ["w3school.com.cn"]
-    start_urls = [
-        "http://www.w3school.com.cn/xml/xml_syntax.asp"
-    ]
+    name = 'w3school'
+    allowed_domains = ['w3school.com.cn']
+    start_urls = ['https://www.w3school.com.cn/xml/index.asp']
 
     def parse(self, response):
         sel = Selector(response)
@@ -28,7 +16,7 @@ class W3schoolSpider(Spider):
         items = []
 
         for site in sites:
-            item = W3schoolItem()
+            item = CartoonItem()
 
             title = site.xpath('a/text()').extract()
             link = site.xpath('a/@href').extract()
@@ -40,7 +28,7 @@ class W3schoolSpider(Spider):
             items.append(item)
 
             # 记录
-            log.msg("Appending item...", level='INFO')
+            log.msg("Appending item...", level=9)
 
-        log.msg("Append done.", level='INFO')
+        log.msg("Append done.", level=9)
         return items
