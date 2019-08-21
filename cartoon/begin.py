@@ -1,3 +1,3 @@
 from scrapy import cmdline
 
-cmdline.execute("scrapy crawl w3school".split())
+cmdline.execute("scrapy crawl dbnovel".split())
