@@ -9,7 +9,7 @@ import json
 import codecs
 
 
-class CartoonPipeline(object):
+class W3schoolPipeline(object):
     def __init__(self):
         self.file = codecs.open('w3school_data_utf8.json', 'wb', encoding='utf-8')
 

@@ -52,9 +52,9 @@ ROBOTSTXT_OBEY = True
 
 # Enable or disable downloader middlewares
 # See https://doc.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    'cartoon.middlewares.CartoonDownloaderMiddleware': 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+   'cartoon.middlewares.UserAgentMiddleware': 543,
+}
 
 # Enable or disable extensions
 # See https://doc.scrapy.org/en/latest/topics/extensions.html
@@ -65,7 +65,7 @@ ROBOTSTXT_OBEY = True
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-   'cartoon.pipelines.CartoonPipeline': 300,
+   'cartoon.pipelines.W3schoolPipeline': 300,
 }
 
 # Enable and configure the AutoThrottle extension (disabled by default)

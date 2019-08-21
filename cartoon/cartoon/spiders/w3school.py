@@ -2,7 +2,7 @@
 from scrapy.spiders import Spider
 from scrapy.selector import Selector
 from scrapy import log
-from ..items import CartoonItem
+from ..items import W3schoolItem
 
 
 class W3schoolSpider(Spider):
@@ -16,7 +16,7 @@ class W3schoolSpider(Spider):
         items = []
 
         for site in sites:
-            item = CartoonItem()
+            item = W3schoolItem()
 
             title = site.xpath('a/text()').extract()
             link = site.xpath('a/@href').extract()
