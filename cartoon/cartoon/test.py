@@ -1,1 +1,0 @@
-scrapy shell "http://comic.kukudm.com/comiclist/3/1.htm"
