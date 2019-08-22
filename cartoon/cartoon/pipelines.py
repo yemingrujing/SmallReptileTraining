@@ -38,11 +38,12 @@ class DBNovelPipeline(object):
     def open_spider(self, spider):
         self.client = pymongo.MongoClient(self.mongo_uri)
         self.db = self.client[self.mongo_db]
+        self.db.authenticate('test', '123456789')
 
     def process_item(self, item, spider):
         if spider.name == "dbnovel":
             name = item.collection
-            self.db[name].insert(dict(item, ensure_ascii=False))
+            self.db[name].insert(dict(item))
             return item
         else:
             pass

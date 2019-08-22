@@ -21,7 +21,7 @@ class DbnovelSpider(Spider):
         details = sel.xpath('//*[@class="item"]/div/dl')
         for detail in details:
             item = Noveltem()
-            item['title'] = detail.xpath('dt/span/text()').extract_first().strip()
+            item['title'] = detail.xpath('dt/a/text()').extract_first()
             item['url'] = ''.join(["https://www.qb5200.tw", detail.xpath('dt/a/@href').extract_first().strip()])
             yield scrapy.Request(item['url'],  meta={'item': item}, callback=self.parse_profile)
             # item['profile'] = detail.xpath('dd/text()').extract_first().strip()\
