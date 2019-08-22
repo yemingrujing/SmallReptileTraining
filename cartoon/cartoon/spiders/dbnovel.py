@@ -11,7 +11,18 @@ class DbnovelSpider(Spider):
     custom_settings = {
         'ITEM_PIPELINES': {
             'cartoon.pipelines.DBNovelPipeline': 1,
-        }
+        },
+        'DEFAULT_REQUEST_HEADERS': {
+            'Accept': "text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3",
+            'Accept-Language': "zh-CN,zh;q=0.9",
+            "Accept-Encoding": "gzip, deflate, br",
+            "Connection": "keep-alive",
+            "Host": "www.qb5200.tw",
+            "Referer": "https://www.qb5200.tw/",
+            "User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/75.0.3770.100 Safari/537.36",
+            'Upgrade-Insecure-Requests': '1',
+            'Content-Type': 'application/x-www-form-urlencoded'
+        },
     }
     allowed_domains = ['www.qb5200.tw']
     start_urls = ['https://www.qb5200.tw/']
