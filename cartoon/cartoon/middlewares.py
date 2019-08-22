@@ -78,9 +78,9 @@ class UserAgentMiddleware(object):
 
         self.proxies = [
             'https://125.77.30.88:1081',
-            'https://111.231.93.66:8888',
-            'https://118.26.170.209:8080',
             'https://42.159.91.248:8080',
+            'https://118.26.170.209:8080',
+            'https://118.122.124.5:1080',
         ]
 
     def process_request(self, request, spider):

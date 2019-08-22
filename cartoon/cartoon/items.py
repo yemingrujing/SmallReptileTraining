@@ -9,15 +9,18 @@ from scrapy import Item, Field
 
 
 class W3schoolItem(Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
     title = Field()
     link = Field()
     desc = Field()
 
+
 class Noveltem(Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
+    collection = table = 'recommend'
     title = Field()
-    url = Field
-    content = Field()
+    url = Field()
+    profile = Field()
+    author = Field()
+    category = Field()
+    status = Field()
+    wordNum = Field()
+    updateTime = Field()
