@@ -9,6 +9,7 @@ from urllib.parse import quote
 from bs4 import BeautifulSoup
 from http import cookiejar
 import string
+import ssl
 
 '''
 # userAgent是爬虫与反爬虫斗争的第一步
@@ -84,10 +85,11 @@ for p in range(pageCount):
 
     for imageSkipUrl in imageUrls:
         # 可以直接取属性获得href内容 https://bbs.csdn.net/topics/392161042?list=lz
-        url2 = 'http://www.ivsky.com' + imageSkipUrl
+        url2 = 'https://www.ivsky.com' + imageSkipUrl
+        context = ssl._create_unverified_context()
         request2 = urllib2.Request(url=url2)
         request2.add_header('User_Agent', userAgent)
-        response2 = urllib2.urlopen(request2)
+        response2 = urllib2.urlopen(request2, context=context)
         soup2 = BeautifulSoup(response2, "html.parser")
         pattern = re.compile(r"var imgURL='(.*?)';", re.MULTILINE | re.DOTALL)
         # //img.ivsky.com'+imgURL+'?download
@@ -106,7 +108,7 @@ for p in range(pageCount):
                 'User-Agent': userAgent
             }
             request = urllib2.Request(url=imageUrl, data=None, headers=headers)
-            response = urllib2.urlopen(request)
+            response = urllib2.urlopen(request, context=context)
             data = response.read()
             with open('%s/%s_%s.jpg' % (dirName, pageNumberS, imageName), 'wb') as f:
                 f.write(data)
