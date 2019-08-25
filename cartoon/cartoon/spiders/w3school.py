@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 from scrapy.spiders import Spider
 from scrapy.selector import Selector
-from scrapy import log
+import logging
 from ..items import W3schoolItem
 
 
@@ -28,7 +28,7 @@ class W3schoolSpider(Spider):
             items.append(item)
 
             # 记录
-            log.msg("Appending item...", level=9)
+            logging.info("Appending item...")
 
-        log.msg("Append done.", level=9)
+        logging.info("Append done.")
         return items
